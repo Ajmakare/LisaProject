@@ -159,6 +159,7 @@ PAYPAL_RECEIVER_EMAIL = 'sb-4kvhk24987719@business.example.com'
 
 PAYPAL_TEST = True
 STATICFILES_STORAGE = ('whitenoise.storage.CompressedManifestStaticFilesStorage')
+SCM_DO_BUILD_DURING_DEPLOYMENT = True
 
 django_heroku.settings(locals())
 

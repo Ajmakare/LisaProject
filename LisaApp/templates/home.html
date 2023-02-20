@@ -14,7 +14,7 @@
 </head>
 <body>
         <header id = 'header'>
-                <img id = 'main_logo' src = "{% static 'Media\MAINLOGO.png' %}" >
+          <img  id = 'main_logo' src = "{% static 'Media/MAINLOGO.png' %}" >
                 <div id = 'button_container'>
                     {% if user.is_authenticated %}
                     <a  id = 'login_button' style = "margin-right: 15px;" href = "https://rootandrise.live/" class="btn btn-primary">Website</a>
@@ -64,7 +64,7 @@
                 <div id = 'card' class="card mb-3">
                     <div class="row g-0">
                         <div class="col-md-4" style = 'margin:auto'>
-                            <img src = "{% static 'Media\home_img.jpg' %}" class="img-fluid rounded-start" alt="...">
+                            <img src = "{% static 'Media/home_img.jpg' %}" class="img-fluid rounded-start" alt="...">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body" style = "margin-top: 8%;">

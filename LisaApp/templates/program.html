@@ -15,8 +15,8 @@
 <body>
         <header id = 'header' style = "margin-bottom: 20px;">
             <a href = '/'>
-                <img  id = 'main_logo' src = "{% static 'Media\MAINLOGO.png' %}" >
-              </a>                <div id = 'button_container'>
+                <img  id = 'main_logo' src = "{% static 'Media/MAINLOGO.png' %}" >
+            </a>                <div id = 'button_container'>
                     {% if user.is_authenticated %}
                     <a  id = 'login_button' style = "margin-right: 15px;" href = "https://rootandrise.live/" class="btn btn-primary">Website</a>
                     <a  id = 'login_button' style = "margin-right: 10px;" href = "/profile" class="btn btn-primary">Profile</a>
