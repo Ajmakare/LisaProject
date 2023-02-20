@@ -36,7 +36,7 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if not IS_HEROKU:
-    DEBUG = True
+    DEBUG = False
 
 if IS_HEROKU:
     ALLOWED_HOSTS = ["*"]
