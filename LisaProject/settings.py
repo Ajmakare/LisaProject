@@ -34,9 +34,10 @@ IS_HEROKU = "DYNO" in os.environ
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
 
+DEBUG = True
 # SECURITY WARNING: don't run with debug turned on in production!
 if not IS_HEROKU:
-    DEBUG = False
+    DEBUG = True
 
 if IS_HEROKU:
     ALLOWED_HOSTS = ["*"]
