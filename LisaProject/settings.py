@@ -34,7 +34,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    'https://root-and-rise-daily-movement.herokuapp.com/'
+    'root-and-rise-daily-movement.herokuapp.com'
 ]
 
 CSRF_TRUSTED_ORIGINS = ['https://root-and-rise-daily-movement.herokuapp.com/']
