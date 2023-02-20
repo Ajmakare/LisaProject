@@ -35,12 +35,10 @@ DEBUG = False
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    env('HOST_URL_HTTPS'),
-    env('HOST_URL'),
     'root-and-rise-daily-movement.herokuapp.com'
 ]
 
-CSRF_TRUSTED_ORIGINS = [env('HOST_URL_HTTPS')]
+CSRF_TRUSTED_ORIGINS = ['https://root-and-rise-daily-movement.herokuapp.com/']
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
