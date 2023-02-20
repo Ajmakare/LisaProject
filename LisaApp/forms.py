@@ -25,7 +25,7 @@ class UserCreationForm(UserCreationForm):
 
 class ProgramChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):
-#         return obj.name
+        return obj.name
 # class SubscriptionForm(forms.Form):
 #     tier1_price = TierText.objects.get(tier=1).tier_price
 #     tier2_price = TierText.objects.get(tier=2).tier_price
