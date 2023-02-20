@@ -1,0 +1,352 @@
+{% load static %}
+{% load render_table from django_tables2 %}
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+<head>
+    {% load crispy_forms_tags %}
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>    <link href="https://fonts.cdnfonts.com/css/lane" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lisa App</title>
+</head>
+<body>
+        <header id = 'header' style = 'margin-bottom: 20px;'>
+            <a href = '/'>
+                <img  id = 'main_logo' src = "{% static 'Media\MAINLOGO.png' %}" >
+              </a>
+                <div id = 'button_container'>
+                    {% if user.is_authenticated %}
+                    <a  id = 'login_button' style = "margin-right: 10px;" href = "/profile" class="btn btn-primary">Profile</a>
+                    <a  id = 'login_button'  href = "/logout" class="btn btn-primary">Logout</a>
+                    {% else %}
+                    <a  id = 'signup_button' href = "/signup" class="btn btn-primary">Sign Up</a>
+                    <a  id = 'login_button' href = "/login" class="btn btn-primary">Login</a>
+                    {% endif %}
+                </div>
+            </header>
+            <ul class="messages">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+                {% endfor %}
+                {% endif %}
+            </ul>
+            {% if user.is_authenticated and user.is_staff %}     
+            <div id="model_button_container" style = "flex-direction: row; margin:auto; margin-bottom: 20px;">
+                <!-- Add a Video Button trigger modal -->
+                <button type="button" class="btn btn-primary" id = "modal_button" data-bs-toggle="modal" data-bs-target="#addAVideo">
+                    Add a Video
+                </button>             
+                <!-- Delete a Video Button trigger modal -->
+                <button type="button" class="btn btn-primary" id = "modal_button" data-bs-toggle="modal" data-bs-target="#deleteVideo">
+                    Delete a Video
+                </button> 
+                <!-- Create a Program Button trigger modal -->
+                <button type="button" class="btn btn-primary" id = "modal_button" data-bs-toggle="modal" data-bs-target="#createAProgram">
+                        Create a Program
+                    </button>             
+                <!-- Delete a Program Button trigger modal -->
+                <button type="button" class="btn btn-primary" id = "modal_button" data-bs-toggle="modal" data-bs-target="#deleteAProgram">
+                        Delete a Program
+                    </button>                
+                <!-- Assign program Button trigger modal -->
+                <button type="button" class="btn btn-primary" id = "modal_button" data-bs-toggle="modal" data-bs-target="#assignProgram">
+                    Assign a Program
+                </button>                      
+                <!-- Unassign program Button trigger modal -->
+                <button type="button" class="btn btn-primary" id = "modal_button" data-bs-toggle="modal" data-bs-target="#unassignProgram">
+                    Unassign a Program
+                </button>               
+                <!-- Assign video Button trigger modal -->
+                <button type="button" class="btn btn-primary" id = "modal_button" data-bs-toggle="modal" data-bs-target="#assignVideo">
+                    Assign a Video
+                </button>                    
+                <!-- Assign video Button trigger modal -->
+                <button type="button" class="btn btn-primary" id = "modal_button" data-bs-toggle="modal" data-bs-target="#homeText">
+                    Home Verbiage
+                </button>               
+                <!-- Assign video Button trigger modal -->
+                <button type="button" class="btn btn-primary" id = "modal_button" data-bs-toggle="modal" data-bs-target="#tierText">
+                    Tier Verbiage
+                </button>                    
+                <!-- Change Trial code trigger modal -->
+                <button type="button" class="btn btn-primary" id = "modal_button" data-bs-toggle="modal" data-bs-target="#trialCode">
+                    Change Trial Code
+                </button>                
+            </div>       
+    
+                <!-- Modal 1 - Add a video -->
+                <div class="modal fade" id="addAVideo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 style = 'font-weight: bolder; color: #666666;'>Add a Video</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <p style = "color: #666666; text-align: center;">Add a video to the database to then assign to programs</p>
+                            <div id = 'program_container' style = "margin-top: 0px;">
+                                <!-- Add video form -->
+                                <form method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <!-- Using the formset -->
+                                    {{ video_form|crispy }}
+                                    <button style = 'margin-top: 10px;' id = 'login_button' type="submit" class="btn btn-primary">Add</button>
+                                </form>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>                
+                <!-- Modal 2 - Delete a video -->
+                <div class="modal fade" id="deleteVideo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 style = 'font-weight: bolder; color: #666666;'>Delete a Video</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <p style = "color: #666666; text-align: center;">Delete video from the database</p>
+                            <div id = 'program_container' style = "margin-top: 0px;">
+                                <!-- Add video form -->
+                                <form method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <!-- Using the formset -->
+                                    {{ delete_video_form|crispy }}
+                                    <button style = 'margin-top: 10px;' id = 'login_button' type="submit" class="btn btn-primary">Delete</button>
+                                </form>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                
+                
+                <!-- Modal 3 - Create a program -->
+                <div class="modal fade" id="createAProgram" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 style = 'font-weight: bolder; color: #666666;'>Create a Program</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <p style = "color: #666666; text-align: center;">Save a new program to the database</p>
+                        <!-- Create Program form -->
+                        <div id = 'program_container' style = "margin-top: 0px;">
+                            <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <!-- Using the formset -->
+                                {{ program_form|crispy }}
+                                <button style = 'margin-top: 10px;' id = 'login_button' type="submit" class="btn btn-primary">Create</button>
+                            </form>
+                        </div> 
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>                        
+            
+            <!-- Modal 4 - Delete a program -->
+                <div class="modal fade" id="deleteAProgram" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 style = 'font-weight: bolder; color: #666666;'>Delete a Program</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <p style = "color: #666666; text-align: center;">Delete a program from the database</p>
+                        <!-- Create Program form -->
+                        <div id = 'program_container' style = "margin-top: 0px;">
+                            <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <!-- Using the formset -->
+                                {{ delete_program_form|crispy }}
+                                <button style = 'margin-top: 10px;' id = 'login_button' type="submit" class="btn btn-primary">Delete</button>
+                            </form>
+                        </div> 
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>                
+            
+            <!-- Modal 5 - Assign a program -->
+            <div class="modal fade" id="assignProgram" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 style = 'font-weight: bolder;color: #666666;'>Assign a Program</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <p style = "color: #666666; text-align: center;">Assign a program to a user for x amount of weeks</p>
+                    <!-- Assign Program form -->
+                    <div id = 'program_container' style = "margin-top: 0px; margin-left: 10px; margin-right: 10px;">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <!-- Using the formset -->
+                            {{ assign_program_form|crispy }}
+                            <button style = 'margin-top: 10px;' id = 'login_button' type="submit" class="btn btn-primary">Assign</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>     
+        <!-- Modal 5 - unassign a program -->
+            <div class="modal fade" id="unassignProgram" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 style = 'font-weight: bolder;color: #666666;'>Unassign a Program</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <p style = "color: #666666; text-align: center;">Unassign a program from a user (remove all assignments of a program to a user)</p>
+                    <!-- Assign Program form -->
+                    <div id = 'program_container' style = "margin-top: 0px; margin-left: 10px; margin-right: 10px;">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <!-- Using the formset -->
+                            {{ unassign_program_form|crispy }}
+                            <button style = 'margin-top: 10px;' id = 'login_button' type="submit" class="btn btn-primary">Unassign</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>                  
+        <!-- Modal 6 - Assign a video -->
+            <div class="modal fade" id="assignVideo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 style = 'font-weight: bolder;color: #666666;'>Assign a Video</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <p style = "color: #666666; text-align: center;">Assign a video to a program (a program is the container filled with videos)</p>
+                    <!-- Assign Program form -->
+                    <div id = 'program_container' style = "margin-top: 0px; margin-left: 10px; margin-right: 10px;">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <!-- Using the formset -->
+                            {{ assign_video_form|crispy }}
+                            <button style = 'margin-top: 10px;' id = 'login_button' type="submit" class="btn btn-primary">Assign</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>          
+        <!-- Modal 7 - Home Text -->
+            <div class="modal fade" id="homeText" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 style = 'font-weight: bolder;color: #666666;'>Home Verbiage</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <p style = "color: #666666; text-align: center;">Change the home page verbiage</p>
+                    <!-- Assign Program form -->
+                    <div id = 'program_container' style = "margin-top: 0px; margin-left: 10px; margin-right: 10px;">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <!-- Using the formset -->
+                            {{ home_text_form|crispy }}
+                            <button style = 'margin-top: 10px;' id = 'login_button' type="submit" class="btn btn-primary">Set</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>          
+        <!-- Modal 8 - Tier Text -->
+            <div class="modal fade" id="tierText" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 style = 'font-weight: bolder;color: #666666;'>Tier Verbiage</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <p style = "color: #666666; text-align: center;">Change the verbiage of a tier (price change display takes a while to take affect)</p>
+                    <!-- Assign Program form -->
+                    <div id = 'program_container' style = "margin-top: 0px; margin-left: 10px; margin-right: 10px;">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <!-- Using the formset -->
+                            {{ tier_text_form|crispy }}
+                            <button style = 'margin-top: 10px;' id = 'login_button' type="submit" class="btn btn-primary">Set</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>          
+        <!-- Modal 8 - Tier Text -->
+            <div class="modal fade" id="trialCode" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 style = 'font-weight: bolder;color: #666666;'>Change Trial Code</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <p style = "color: #666666; text-align: center;">Change the free trial code (may want to do this every so often)</p>
+                    <!-- Assign Program form -->
+                    <div id = 'program_container' style = "margin-top: 0px; margin-left: 10px; margin-right: 10px;">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <!-- Using the formset -->
+                            {{ trial_code_form|crispy }}
+                            <button style = 'margin-top: 10px;' id = 'login_button' type="submit" class="btn btn-primary">Set</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>                
+        
+        <div style = 'display: flex; flex-wrap: wrap; margin:auto'>
+            <!-- Tables-->
+            <div style = "font-size: 20px; margin-bottom: 20px; margin-top: 0px; margin-left: 10px; margin-right: 10px;" id = 'program_container'>
+                <h1 style = "font-weight: bolder; text-decoration: underline;">All Users in Database:</h1>
+                {% render_table user_table %}
+                <!-- user_search.html -->
+                <form id = 'user_search' style = " margin:auto !important" method="post" action="{% url 'user_info' %}">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <span style = "font-weight: bold;" class="input-group-text" id="basic-addon1">Search a User </span>
+                        <input name="username" type="text" class="form-control"  aria-label="Username" aria-describedby="basic-addon1" required>
+                        <input class="btn btn-primary" type="submit" value="Search">
+                        </div>
+                </form>
+                <h1 style = "font-weight: bolder; text-decoration: underline;">All Programs in Database:</h1>
+                {% render_table program_table %}
+                <h1 style = "font-weight: bolder; text-decoration: underline;">All Videos in Database:</h1>
+                {% render_table video_table %}                   
+            </div>
+        </div>
+        {% endif %}
+        <div id = 'footer'>
+                <p id = 'footer_text'>© All rights reserved 2023.</p>
+        </div>
+    </body>
+</html>

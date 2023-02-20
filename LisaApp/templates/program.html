@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+<head>
+    {% load crispy_forms_tags %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="https://fonts.cdnfonts.com/css/lane" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lisa App</title>
+</head>
+<body>
+        <header id = 'header' style = "margin-bottom: 20px;">
+            <a href = '/'>
+                <img  id = 'main_logo' src = "{% static 'Media\MAINLOGO.png' %}" >
+              </a>                <div id = 'button_container'>
+                    {% if user.is_authenticated %}
+                    <a  id = 'login_button' style = "margin-right: 15px;" href = "https://rootandrise.live/" class="btn btn-primary">Website</a>
+                    <a  id = 'login_button' style = "margin-right: 10px;" href = "/profile" class="btn btn-primary">Profile</a>
+                    <a  id = 'login_button'  href = "/logout" class="btn btn-primary">Logout</a>
+                    {% else %}
+                    <a  id = 'login_button' style = "margin-right: 15px;" href = "https://rootandrise.live/" class="btn btn-primary">Website</a>
+                    <a  id = 'signup_button' href = "/signup" class="btn btn-primary">Sign Up</a>
+                    <a  id = 'login_button' href = "/login" class="btn btn-primary">Login</a>
+                    {% endif %}
+                </div>
+            </header>
+            <ul class="messages">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+                {% endfor %}
+                {% endif %}
+            </ul>
+            {% if user.is_authenticated %}
+            <div id = 'program_container'>
+                <h1 style = 'font-weight: bolder;'>{{ program.name }}</h1>
+                <p style = 'text-decoration: underline;'>{{ program.description }}</p>
+                <ul style = 'padding-left: 20px'>
+                  {% for video in videos %}
+                        <iframe id = 'videos' src="{{ video.video_link }}"  width="640" height="360"frameborder="0" allowfullscreen></iframe>
+                            <p style = 'text-decoration: underline;'>{{ video.description }}</p>
+                            
+                            {% endfor %}
+                            {% if completed %}
+                                <p style = 'font-weight: bolder;'>Program Completed!</p>
+                            {% else %}
+                                <form method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <!-- Using the formset -->
+                                    {{ complete_program_form|crispy }}
+                                    <button style = 'margin-top: 10px;' id = 'login_button' type="submit" class="btn btn-primary">Save</button>
+                                </form>
+                            {% endif %}
+                    <a style = 'margin-top: 15px;' id = 'login_button' href = "/" class="btn btn-primary">Back to Programs</a>
+                </ul>
+            </div>
+            {% endif %}
+        <div id = 'footer'>
+            <p id = 'footer_text'>© All rights reserved 2023.</p>
+        </div>
+    </body>
+</html>
