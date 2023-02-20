@@ -26,16 +26,16 @@ class UserCreationForm(UserCreationForm):
 class ProgramChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):
         return obj.name
-class SubscriptionForm(forms.Form):
-    tier1_price = TierText.objects.get(tier=1).tier_price
-    tier2_price = TierText.objects.get(tier=2).tier_price
-    tier3_price = TierText.objects.get(tier=3).tier_price
-    subscription_options = [
-        ('Tier 1', 'Tier 1 Subscription ($' + str(tier1_price) + ' USD/Mon)'),
-        ('Tier 2', 'Tier 2 Subscription ($' + str(tier2_price) + ' USD/Mon)'),
-        ('Tier 3', 'Tier 3 Subscription ($' + str(tier3_price) + ' USD/Mon)'),
-    ]
-    plans = forms.ChoiceField(choices=subscription_options)
+# class SubscriptionForm(forms.Form):
+#     tier1_price = TierText.objects.get(tier=1).tier_price
+#     tier2_price = TierText.objects.get(tier=2).tier_price
+#     tier3_price = TierText.objects.get(tier=3).tier_price
+#     subscription_options = [
+#         ('Tier 1', 'Tier 1 Subscription ($' + str(tier1_price) + ' USD/Mon)'),
+#         ('Tier 2', 'Tier 2 Subscription ($' + str(tier2_price) + ' USD/Mon)'),
+#         ('Tier 3', 'Tier 3 Subscription ($' + str(tier3_price) + ' USD/Mon)'),
+#     ]
+#     plans = forms.ChoiceField(choices=subscription_options)
 
 class AddVideo(forms.Form):
     video_link = forms.CharField(max_length=100, required=True, label='Video Link')
