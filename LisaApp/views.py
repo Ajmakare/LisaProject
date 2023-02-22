@@ -70,7 +70,7 @@ def profile(request):
 @login_required
 def all_programs(request):
     user = request.user
-    upjunctions = UPJunction.objects.filter(user=user, completed=False)
+    upjunctions = UPJunction.objects.filter(user=user, completed=False).order_by('start_date')
     context = {'upjunctions': upjunctions}
     return render(request, 'all_programs.html', context)
 
