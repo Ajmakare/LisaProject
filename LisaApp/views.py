@@ -222,10 +222,15 @@ def program(request):
     program_name = request.GET.get('name')
     program_date = request.GET.get('date')
     program = Program.objects.get(name=program_name)
-    junction_obj = UPJunction.objects.filter(start_date=timezone.now(), user= request.user).first()
     if program_date:
-        program_date = datetime.strptime(program_date, '%B %d, %Y').date()
+        try:
+            program_date = datetime.strptime(program_date, '%b. %d, %Y').date()
+        except ValueError:
+            program_date = datetime.strptime(program_date, '%B %d, %Y').date()
         junction_obj = UPJunction.objects.filter(start_date=program_date, user= request.user).first()
+    else:
+        junction_obj = UPJunction.objects.filter(start_date=timezone.now(), user= request.user).first()
+
     completed = junction_obj.completed
     videos = Video.objects.filter(pvjunction__program=program)
     for video in videos:

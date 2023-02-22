@@ -39,7 +39,6 @@
             <div id = 'program_container'>
                 <h1 style = 'font-weight: bolder;'>{{ program.name }}</h1>
                 <p style = 'text-decoration: underline;'>{{ program.description }}</p>
-                <ul style = 'padding-left: 20px'>
                   {% for video in videos %}
                         <iframe id = 'videos' src="{{ video.video_link }}"  width="640" height="360"frameborder="0" allowfullscreen></iframe>
                             <p style = 'text-decoration: underline;'>{{ video.description }}</p>
@@ -56,7 +55,6 @@
                                 </form>
                             {% endif %}
                     <a style = 'margin-top: 15px;' id = 'login_button' href = "/" class="btn btn-primary">Back to Home</a>
-                </ul>
             </div>
             {% endif %}
         <div id = 'footer'>
