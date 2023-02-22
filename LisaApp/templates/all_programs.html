@@ -28,37 +28,23 @@
                     {% endif %}
                 </div>
             </header>
-            <ul class="messages">
-                {% if messages %}
-                {% for message in messages %}
-                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
-                {% endfor %}
+            <div id = "program_container">
+
+                <h1>All Programs</h1>
+                {% if upjunctions %}
+                    <div style="display:flex; flex-direction: column;">
+                        {% for upjunction in upjunctions %}
+                        <a style="font-weight: bolder;" id="program_button" href="/program/?name={{ upjunction.program.name }}&amp;date={{ upjunction.start_date }}" class="btn btn-primary">
+                            <h2 style = "font-weight: bolder;">{{upjunction.program.name}}</h2>
+                            <p>Date: {{ upjunction.start_date }}</p>
+                        </a>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                <p>No programs available.</p>
                 {% endif %}
-            </ul>
-            {% if user.is_authenticated %}
-            <div id = 'program_container'>
-                <h1 style = 'font-weight: bolder;'>{{ program.name }}</h1>
-                <p style = 'text-decoration: underline;'>{{ program.description }}</p>
-                <ul style = 'padding-left: 20px'>
-                  {% for video in videos %}
-                        <iframe id = 'videos' src="{{ video.video_link }}"  width="640" height="360"frameborder="0" allowfullscreen></iframe>
-                            <p style = 'text-decoration: underline;'>{{ video.description }}</p>
-                            
-                            {% endfor %}
-                            {% if completed %}
-                                <p style = 'font-weight: bolder;'>Program Completed!</p>
-                            {% else %}
-                                <form method="POST" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    <!-- Using the formset -->
-                                    {{ complete_program_form|crispy }}
-                                    <button style = 'margin-top: 10px;' id = 'login_button' type="submit" class="btn btn-primary">Save</button>
-                                </form>
-                            {% endif %}
-                    <a style = 'margin-top: 15px;' id = 'login_button' href = "/" class="btn btn-primary">Back to Home</a>
-                </ul>
             </div>
-            {% endif %}
+
         <div id = 'footer'>
             <p id = 'footer_text'>© All rights reserved 2023.</p>
         </div>

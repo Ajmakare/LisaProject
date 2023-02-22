@@ -65,48 +65,15 @@ def index(request):
 
 @login_required
 def profile(request):
-    if request.method == "GET":
-        # Set the current date and get the last day of the current month
-        start_date = datetime.now().date()
-        last_day_of_month = calendar.monthrange(start_date.year, start_date.month)[1]
-        end_date = date(start_date.year, start_date.month, last_day_of_month)
-
-        # Filter the UPJunction objects to only include the ones for the current user
-        # and that have start dates in the date range
-        up_junctions = UPJunction.objects.filter(user=request.user).select_related('program').order_by('start_date')
-
-        # Get the start dates of the UPJunction objects
-        events = []
-        seen_dates = set()
-        for junction in up_junctions:
-            date_str = junction.start_date.strftime("%Y-%m-%d")
-            if date_str in seen_dates:
-                continue
-            seen_dates.add(date_str)
-            event = {}
-            event['title'] = junction.program.name
-            event['date'] = date_str
-            events.append(event)
-
-        # Convert the events to a JSON string and pass it to the template
-        events_json = mark_safe(json.dumps(events))
-
-        # Create a table class for the events
-        class EventsTable(tables.Table):
-            title = tables.Column()
-            date = tables.Column()
-
-            class Meta:
-                attrs = {
-                    'td': {'style': 'padding-right: 20px'},
-                    'td': {'style': 'padding-left: 20px'}
-                }
-        if events_json != '[]':
-            table = EventsTable(json.loads(events_json))
-            table.paginate(page=request.GET.get("page", 1), per_page=10)
-            return render(request, 'profile.html', {'table': table, 'empty': False})
-        return render(request, 'profile.html', {'empty': True})
+        return render(request, 'profile.html', {})
     
+@login_required
+def all_programs(request):
+    user = request.user
+    upjunctions = UPJunction.objects.filter(user=user, completed=False)
+    context = {'upjunctions': upjunctions}
+    return render(request, 'all_programs.html', context)
+
 @login_required
 def controlPanel(request):
     videos = Video.objects.all()
@@ -253,8 +220,12 @@ def controlPanel(request):
 def program(request):
     complete_form = CompleteProgramForm(request.POST or None)
     program_name = request.GET.get('name')
+    program_date = request.GET.get('date')
     program = Program.objects.get(name=program_name)
     junction_obj = UPJunction.objects.filter(start_date=timezone.now(), user= request.user).first()
+    if program_date:
+        program_date = datetime.strptime(program_date, '%B %d, %Y').date()
+        junction_obj = UPJunction.objects.filter(start_date=program_date, user= request.user).first()
     completed = junction_obj.completed
     videos = Video.objects.filter(pvjunction__program=program)
     for video in videos:

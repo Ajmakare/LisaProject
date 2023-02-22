@@ -42,22 +42,16 @@
                 <li>
                     Subscription: {{user.groups.all.0.name}}
                 </li>
-                {% load render_table from django_tables2 %}
-                {% if not empty %}
-                <div style = "margin-top: 20px;">
-                    <h1 style = "font-weight: bolder;">Program Dates: </h1>
-                    {% render_table table %}
-                </div>
-                {% endif %}
                 {% if user.is_staff %}
                 <div style = 'display: flex; flex-direction: column;margin-top: 15px;'>
                     <a style = "font-size: 20px;margin-left: 10px;" href="/admin">Administration page</a>
                     <a  style = 'font-size: 22px;margin-top: 15px;' id = 'subscriptions_button' href = "/control_panel" class="btn btn-primary">Control Panel</a>
                 </div>
                 {% endif %}
-                <div style = 'display: flex; flex-direction: column;margin-top: 10px;'>
+                <div style = 'display: flex; flex-direction: column;'>
+                    <a  style = 'font-size: 22px;' id = 'subscriptions_button' href = "/all_programs" class="btn btn-primary">Programs</a>
                     <a  style = 'font-size: 22px;' id = 'subscriptions_button' href = "/subscription" class="btn btn-primary">Subscriptions</a>
-                    <a  style = 'font-size: 21px;margin-top: 15px;' id = 'subscriptions_button' href = "/password_reset" class="btn btn-primary">Reset password</a>
+                    <a  style = 'font-size: 21px;' id = 'subscriptions_button' href = "/password_reset" class="btn btn-primary">Reset password</a>
                 </div>
             </div>
             <div id = 'footer'>
