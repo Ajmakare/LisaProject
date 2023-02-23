@@ -190,11 +190,11 @@ if "CI" in os.environ:
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST = "smtp.mailgun.org"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'test@gmail.com'
-EMAIL_HOST_PASSWORD = 'test1234'
+EMAIL_HOST_USER = 'postmaster@sandboxab1fad7cd64d4b4593bf9b99ee72faf3.mailgun.org'
+EMAIL_HOST_PASSWORD = env('EMAIL_PASS')
 
 PAYPAL_RECEIVER_EMAIL = 'sb-4kvhk24987719@business.example.com'
 
