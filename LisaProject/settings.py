@@ -193,8 +193,14 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.mailgun.org"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+
+if IS_HEROKU:
+    EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', '')
+    EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
+    EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
+    EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
 
 PAYPAL_RECEIVER_EMAIL = 'sb-4kvhk24987719@business.example.com'
 
