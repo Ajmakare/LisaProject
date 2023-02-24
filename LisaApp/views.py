@@ -326,8 +326,8 @@ def process_subscription(request):
         'item_name': subscription_plan,
         'custom': request.user.id,
         'currency_code': 'USD',
-        'notify_url': config('HOST_URL_HTTPS') + '/paypal_webhook/',
-        'return_url': config('HOST_URL_HTTPS') ,
+        'notify_url': 'https://root-and-rise-daily-movement.herokuapp.com/' + '/paypal_webhook/',
+        'return_url': 'https://root-and-rise-daily-movement.herokuapp.com/' ,
         # 'cancel_return': 'http://{}{}'.format(host,
         #                                       reverse('canceled')),
     }
