@@ -36,48 +36,22 @@
                 {% endif %}
             </ul>
             {% if user.is_authenticated and user.is_staff %}     
-            <div id="model_button_container" style = "flex-direction: row; margin:auto; margin-bottom: 20px;">
-                <!-- Add a Video Button trigger modal -->
-                <button type="button" class="btn btn-primary" id = "modal_button" data-bs-toggle="modal" data-bs-target="#addAVideo">
-                    Add a Video
-                </button>             
-                <!-- Delete a Video Button trigger modal -->
-                <button type="button" class="btn btn-primary" id = "modal_button" data-bs-toggle="modal" data-bs-target="#deleteVideo">
-                    Delete a Video
-                </button> 
-                <!-- Create a Program Button trigger modal -->
-                <button type="button" class="btn btn-primary" id = "modal_button" data-bs-toggle="modal" data-bs-target="#createAProgram">
-                        Create a Program
-                    </button>             
-                <!-- Delete a Program Button trigger modal -->
-                <button type="button" class="btn btn-primary" id = "modal_button" data-bs-toggle="modal" data-bs-target="#deleteAProgram">
-                        Delete a Program
-                    </button>                
-                <!-- Assign program Button trigger modal -->
-                <button type="button" class="btn btn-primary" id = "modal_button" data-bs-toggle="modal" data-bs-target="#assignProgram">
-                    Assign a Program
-                </button>                      
-                <!-- Unassign program Button trigger modal -->
-                <button type="button" class="btn btn-primary" id = "modal_button" data-bs-toggle="modal" data-bs-target="#unassignProgram">
-                    Unassign a Program
-                </button>               
-                <!-- Assign video Button trigger modal -->
-                <button type="button" class="btn btn-primary" id = "modal_button" data-bs-toggle="modal" data-bs-target="#assignVideo">
-                    Assign a Video
-                </button>                    
-                <!-- Assign video Button trigger modal -->
-                <button type="button" class="btn btn-primary" id = "modal_button" data-bs-toggle="modal" data-bs-target="#homeText">
-                    Home Verbiage
-                </button>               
-                <!-- Assign video Button trigger modal -->
-                <button type="button" class="btn btn-primary" id = "modal_button" data-bs-toggle="modal" data-bs-target="#tierText">
-                    Tier Verbiage
-                </button>                    
-                <!-- Change Trial code trigger modal -->
-                <button type="button" class="btn btn-primary" id = "modal_button" data-bs-toggle="modal" data-bs-target="#trialCode">
-                    Change Trial Code
-                </button>                
-            </div>       
+            <div id="model_button_container" style="margin:auto; margin-bottom:20px">
+                <h2 style = "width: 150%; margin-right: 10px;font-family: 'Lane - Narrow', sans-serif; font-weight: bolder; text-decoration: underline;">Admin Controls:  </h2>
+                <select class="form-select" id="model_dropdown" style = "font-family: 'Lane - Narrow', sans-serif; font-weight: bolder;">
+                    <option value="" style = "font-family: 'Lane - Narrow', sans-serif; font-weight: bolder;">Select an action</option>
+                    <option value="#addAVideo" style = "font-family: 'Lane - Narrow', sans-serif; font-weight: bolder;">Add a Video</option>
+                    <option value="#deleteVideo" style = "font-family: 'Lane - Narrow', sans-serif; font-weight: bolder;">Delete a Video</option>
+                    <option value="#createAProgram" style = "font-family: 'Lane - Narrow', sans-serif; font-weight: bolder;">Create a Program</option>
+                    <option value="#deleteAProgram" style = "font-family: 'Lane - Narrow', sans-serif; font-weight: bolder;">Delete a Program</option>
+                    <option value="#assignProgram" style = "font-family: 'Lane - Narrow', sans-serif; font-weight: bolder;">Assign a Program</option>
+                    <option value="#unassignProgram"style = "font-family: 'Lane - Narrow', sans-serif; font-weight: bolder;">Unassign a Program</option>
+                    <option value="#assignVideo" style = "font-family: 'Lane - Narrow', sans-serif; font-weight: bolder;">Assign a Video</option>
+                    <option value="#homeText" style = "font-family: 'Lane - Narrow', sans-serif; font-weight: bolder;">Home Verbiage</option>
+                    <option value="#tierText" style = "font-family: 'Lane - Narrow', sans-serif; font-weight: bolder;">Tier Verbiage</option>
+                    <option value="#trialCode"style = "font-family: 'Lane - Narrow', sans-serif; font-weight: bolder;">Change Trial Code</option>
+                </select>
+            </div>    
     
                 <!-- Modal 1 - Add a video -->
                 <div class="modal fade" id="addAVideo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -344,9 +318,50 @@
                 {% render_table video_table %}                   
             </div>
         </div>
+        <style>
+            @media screen and (max-width: 569px) {
+                #program_container {
+                    font-size: 16px;
+                }
+        
+                table {
+                    width: 100%;
+                    overflow-x: auto;
+                    display: block;
+                }
+        
+                thead {
+                    display: none;
+                }
+        
+                tbody tr {
+                    height: 48px;
+                }
+        
+                td {
+                    padding: 10px;
+                    font-size: 14px;
+                }
+        
+                #user_search input[type="text"] {
+                    width: 50%;
+                }
+            }
+        </style>
         {% endif %}
         <div id = 'footer'>
                 <p id = 'footer_text'>© All rights reserved 2023.</p>
         </div>
     </body>
+    <script>
+        const dropdown = document.getElementById('model_dropdown');
+        dropdown.addEventListener('change', (event) => {
+            const modalId = event.target.value;
+            if (modalId) {
+                const modal = document.querySelector(modalId);
+                const modalInstance = new bootstrap.Modal(modal);
+                modalInstance.show();
+            }
+        });
+    </script>
 </html>

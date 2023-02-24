@@ -261,7 +261,7 @@ body{
 #model_button_container{
     display:flex !important;
     flex-direction: row;
-    flex-wrap: wrap;
+    color: #666666;
 }
 
 #userInfoDiv{
