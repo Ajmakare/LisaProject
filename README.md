@@ -16,5 +16,8 @@ Subscriptions page via Django-Paypal
 Client simplistic profile page
 ![image](https://user-images.githubusercontent.com/92825395/220789218-37e19c0c-f88e-4836-8147-69b6ff8dac70.png)
 
-+ Other nitty gritty requirements and admin custom control panel
+Custom Admin Control Panel
+![image](https://user-images.githubusercontent.com/92825395/221252007-f94d0d60-d073-4557-abeb-bc8b7cb4d512.png)
+
++ Other nitty gritty requirements
 
