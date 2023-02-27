@@ -34,7 +34,7 @@ IS_HEROKU = "DYNO" in os.environ
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
 
-DEBUG = True
+DEBUG = False
 # SECURITY WARNING: don't run with debug turned on in production!
 if not IS_HEROKU:
     DEBUG = True
@@ -195,12 +195,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
-
-if IS_HEROKU:
-    EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', '')
-    EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
-    EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
-    EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
 
 PAYPAL_RECEIVER_EMAIL = 'easydoesit2383@gmail.com'
 
