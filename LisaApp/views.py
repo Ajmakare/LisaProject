@@ -78,7 +78,6 @@ def all_programs(request):
 def controlPanel(request):
     videos = Video.objects.all()
     video_table = VideoTable(videos)
-    video_table.paginate(page=request.GET.get("page", 1), per_page=10)
 
     program = Program.objects.all()
     program_table = ProgramTable(program)
