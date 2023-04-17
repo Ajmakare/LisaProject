@@ -186,7 +186,6 @@ def controlPanel(request):
                         messages.success(request, 'Trial Code Updated!')
             elif 'username' in request.POST:
                 username = request.POST.get('username')
-                username = username.lower()
                 
                 try:
                     user = User.objects.get(username=username)
