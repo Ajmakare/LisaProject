@@ -214,6 +214,11 @@ def controlPanel(request):
         assign_program_form = AddVideo()
         return render(request, 'control_panel.html', context = context)
     
+def program_detail(request, program_id):
+    program = get_object_or_404(Program, pk=program_id)
+    context = {'program': program}
+    return render(request, 'program_detail.html', context)
+
 @login_required
 def program(request):
     complete_form = CompleteProgramForm(request.POST or None)

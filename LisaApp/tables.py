@@ -1,6 +1,7 @@
 import django_tables2 as tables
 from .models import *
 from django.utils import timezone
+from django.urls import reverse
 
 class VideoTable(tables.Table):
     class Meta:
@@ -9,10 +10,14 @@ class VideoTable(tables.Table):
         fields = ('id','video_link', 'name', 'description')
 
 class ProgramTable(tables.Table):
+    id = tables.LinkColumn('program_detail', args=[tables.A('pk')])
+    name = tables.Column()
+    description = tables.Column()
+
     class Meta:
         model = Program
         template_name = 'django_tables2/bootstrap.html'
-        fields = ('id','name', 'description')
+        fields = ('id', 'name', 'description')
 
 class UserTable(tables.Table):
     class Meta:

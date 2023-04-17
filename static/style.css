@@ -272,6 +272,14 @@ body{
     font-size: 20px;
 }
 
+#programInfoDiv{
+    font-family: 'Lane - Narrow', sans-serif;
+    font-weight: bolder;
+    margin-left: 50px;
+    margin-right: 50px;
+    font-size: 20px;
+}
+
 #user_search{
     font-family: 'Lane - Narrow', sans-serif;
     font-weight: bolder;
