@@ -133,6 +133,9 @@ def controlPanel(request):
                     program = assign_program_form.cleaned_data['program']
                     start_date = assign_program_form.cleaned_data['start_date']
                     repeats = assign_program_form.cleaned_data['repeats']
+                    if repeats == 0:
+                        repeats = 55
+                        print(repeats)
                     for i in range(repeats):
                         UPJunction.objects.create(
                             user=user,
@@ -145,7 +148,6 @@ def controlPanel(request):
                     messages.warning(request, 'Form Invalid!')
             elif 'programToUnassign' in request.POST:
                 if unassign_program_form.is_valid():
-                    print("hits 2")
                     user = unassign_program_form.cleaned_data['user_unassign']
                     program = unassign_program_form.cleaned_data['programToUnassign']
                     UPJunction.objects.filter(user=user, program=program).delete()

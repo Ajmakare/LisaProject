@@ -59,7 +59,7 @@ class AssignProgramForm(forms.ModelForm):
     user = forms.ModelChoiceField(queryset=User.objects.all())
     program = ProgramChoiceField(queryset=Program.objects.all())
     start_date = forms.DateField(label='Start Date', input_formats=['%m/%d/%Y'],widget=forms.TextInput(attrs={'placeholder': 'MM/DD/YYYY'}))
-    repeats = forms.IntegerField(label = 'Number of weeks to repeat (0 to repeat indefinitely)')
+    repeats = forms.IntegerField(label = 'Number of weeks to repeat (type 0 to assign for a year(55 weeks))')
 
     class Meta:
         model = UPJunction
