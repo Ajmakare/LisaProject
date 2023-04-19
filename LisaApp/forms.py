@@ -69,6 +69,9 @@ class UnassignProgramForm(forms.Form):
     user_unassign = forms.ModelChoiceField(queryset=User.objects.all())
     programToUnassign = ProgramChoiceField(queryset=Program.objects.all(), label='Program')
 
+class UnassignVideoForm(forms.Form):
+    program_unassign = ProgramChoiceField(queryset=Program.objects.all())
+    videoToUnassign = VideoChoiceField(queryset=Video.objects.all(), label='Video')
 
 class AssignVideoForm(forms.ModelForm):
     program = ProgramChoiceField(queryset=Program.objects.all())

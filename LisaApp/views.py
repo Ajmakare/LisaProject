@@ -94,6 +94,7 @@ def controlPanel(request):
         delete_program_form = DeleteProgram(request.POST or None)
         assign_program_form = AssignProgramForm(request.POST or None)
         unassign_program_form = UnassignProgramForm(request.POST or None)
+        unassign_video_form = UnassignVideoForm(request.POST or None)
         assign_video_form = AssignVideoForm(request.POST or None)
         home_text_form = HomePageTextForm(request.POST or None)
         tier_text_form = TierTextForm(request.POST or None)
@@ -152,6 +153,14 @@ def controlPanel(request):
                     program = unassign_program_form.cleaned_data['programToUnassign']
                     UPJunction.objects.filter(user=user, program=program).delete()
                     messages.success(request, 'Program Unassigned!')
+            elif 'videoToUnassign' in request.POST:
+                print('hits')
+                if unassign_video_form.is_valid():
+                    print('hits')
+                    program = unassign_video_form.cleaned_data['program_unassign'] 
+                    video = unassign_video_form.cleaned_data['videoToUnassign']
+                    PVJunction.objects.filter(program=program, video=video).delete()
+                    messages.success(request, 'Video Unassigned!')
             elif 'video' in request.POST:
                 if assign_video_form.is_valid():
                     program = assign_video_form.cleaned_data['program']
@@ -207,6 +216,7 @@ def controlPanel(request):
             'assign_video_form': assign_video_form,
             'unassign_program_form': unassign_program_form,
             'video_table': video_table,
+            'unassign_video_form': unassign_video_form,
             'program_table': program_table,
             'user_table': user_table,
             'home_text_form': home_text_form,
