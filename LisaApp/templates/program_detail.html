@@ -32,23 +32,27 @@
       {% endfor %}
       {% endif %}
   </ul>
-  <div id = "programInfoDiv">
-
-      <div class="container">
-          <div class="row">
-              <div class="col-md-8">
-                  <h1>Program Name: {{ program.name }}</h1>
-                  <p>Description: {{ program.description }}</p>
-                  <h1>Videos:</h1>
-                  <ul>
-                      {% for pv in program.pvjunction_set.all %}
-                      <li>{{ pv.video.name }}</li>
-                      {% endfor %}
-                    </ul>
-                </div>
+  <div id="programInfoDiv">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h1>Program Name: {{ program.name }}</h1>
+                <p>Description: {{ program.description }}</p>
+                <form method="POST" action="{% url 'remove_video' program.id %}">
+                    {% csrf_token %}
+                    <label for="video-select">Select a video to remove:</label>
+                    <select id="video-select" name="video_id">
+                        {% for pv in program.pvjunction_set.all %}
+                            <option value="{{ pv.video.id }}">{{ pv.video.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-secondary">Remove Video</button>
+                </form>
             </div>
         </div>
     </div>
+</div>
+
         <div id = 'footer'>
         <p id = 'footer_text'>© All rights reserved 2023.</p>
     </div>

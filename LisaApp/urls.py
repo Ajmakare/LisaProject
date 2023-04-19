@@ -25,5 +25,7 @@ urlpatterns = [
     path('reset_password_complete', auth_views.PasswordResetCompleteView.as_view(), name="password_reset_complete"),
     path('all_programs', all_programs, name='all_programs'),
     path('program_detail/<int:program_id>/', program_detail, name='program_detail'),
+    path('program/<int:program_id>/remove_video/', remove_video, name='remove_video'),
+
 
 ]

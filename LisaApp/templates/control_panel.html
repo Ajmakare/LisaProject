@@ -47,7 +47,6 @@
                     <option value="#assignProgram" style = "font-family: 'Lane - Narrow', sans-serif; font-weight: bolder;">Assign a Program</option>
                     <option value="#unassignProgram"style = "font-family: 'Lane - Narrow', sans-serif; font-weight: bolder;">Unassign a Program</option>
                     <option value="#assignVideo" style = "font-family: 'Lane - Narrow', sans-serif; font-weight: bolder;">Assign a Video</option>
-                    <option value="#unassignVideo" style = "font-family: 'Lane - Narrow', sans-serif; font-weight: bolder;">Unassign a Video</option>
                     <option value="#homeText" style = "font-family: 'Lane - Narrow', sans-serif; font-weight: bolder;">Home Verbiage</option>
                     <option value="#tierText" style = "font-family: 'Lane - Narrow', sans-serif; font-weight: bolder;">Tier Verbiage</option>
                     <option value="#trialCode"style = "font-family: 'Lane - Narrow', sans-serif; font-weight: bolder;">Change Trial Code</option>
@@ -226,30 +225,6 @@
                 </div>
             </div>
         </div>       
-        <!-- Modal unassign Video -->
-        <div class="modal fade" id="unassignVideo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h1 style = 'font-weight: bolder;color: #666666;'>Unassign a Video</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <p style = "color: #666666; text-align: center;">Remove a video from a program</p>
-                <!-- Assign video form -->
-                <div id = 'program_container' style = "margin-top: 0px; margin-left: 10px; margin-right: 10px;">
-                    <form method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <!-- Using the formset -->
-                        {{ unassign_video_form|crispy }}
-                        <button style = 'margin-top: 10px;' id = 'login_button' type="submit" class="btn btn-primary">Remove</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>   
         <!-- Modal 7 - Home Text -->
             <div class="modal fade" id="homeText" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
