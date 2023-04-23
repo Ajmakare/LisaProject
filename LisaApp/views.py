@@ -81,11 +81,9 @@ def controlPanel(request):
 
     program = Program.objects.all()
     program_table = ProgramTable(program)
-    program_table.paginate(page=request.GET.get("page", 1), per_page=10)
 
     users = User.objects.all()
     user_table = UserTable(users)
-    user_table.paginate(page=request.GET.get("page", 1), per_page=10)
 
     if request.user.is_authenticated and request.user.is_superuser:
         video_form = AddVideo(request.POST or None)
