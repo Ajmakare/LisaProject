@@ -23,6 +23,7 @@ import calendar
 from decouple import config
 from django.http import QueryDict
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import IntegrityError
 
 def index(request):
     template = "home.html"
@@ -114,11 +115,14 @@ def controlPanel(request):
                     messages.success(request, 'Video Deleted!')
             elif 'program_name' in request.POST:
                 if program_form.is_valid():
-                    name = program_form.cleaned_data['program_name']
-                    description = program_form.cleaned_data['description']
-                    program = Program(name=name, description=description)
-                    program.save()
-                    messages.success(request, 'Program Created!')
+                    try:
+                        name = program_form.cleaned_data['program_name']
+                        description = program_form.cleaned_data['description']
+                        program = Program(name=name, description=description)
+                        program.save()
+                        messages.success(request, 'Program Created!')
+                    except IntegrityError:
+                        messages.warning(request, 'A program with this name already exists.')
             elif 'program_to_delete' in request.POST:
                 if delete_program_form.is_valid():
                     program = delete_program_form.cleaned_data['program_to_delete']
