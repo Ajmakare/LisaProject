@@ -325,7 +325,7 @@ def process_subscription(request):
         billing_cycle_unit = "M"
     elif subscription_plan == 'Tier 2':
         price = tier2_price
-        billing_cycle = 6
+        billing_cycle = 1
         billing_cycle_unit = "M"
     else:
         price = tier3_price
